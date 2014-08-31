@@ -27,7 +27,7 @@ ext {
     isBuildOnJenkins = System.env['BUILD_TAG']?.startsWith('jenkins-') ?: false
 }
 if (!hasProperty('junitVersion')) { // set default junit version if not set via command line
-    ext.junitVersion = '4.8.2'
+    ext.junitVersion = '4.9'
 }
 ext.skipFindBugs = hasProperty('skipFindBugs')
 println "Using junit version ${junitVersion} for current build (skipFindBugs = ${skipFindBugs})."
@@ -183,7 +183,7 @@ uploadArchives {
                 }
                 whenConfigured { pom ->
                     pom.dependencies.find{ dep -> dep.groupId == 'junit' && dep.artifactId == 'junit-dep' }.with {
-                        version = '[4.8.2,4.11]'
+                        version = '[4.9,4.11]'
                         scope = 'provided'
                     }
                     pom.dependencies.removeAll(pom.dependencies.findAll{ dep -> dep.scope in [ 'compile', 'test' ] })
