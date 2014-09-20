@@ -18,6 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.model.FrameworkMethod;
+import org.mockito.Mock;
 
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
@@ -28,6 +29,9 @@ public class DataProviderJavaAcceptanceTest {
 
     private static String emptyString = null;
     private static String notEmptyString = null;
+
+    @Mock
+    Object tmpMock;
 
     @BeforeClass
     public static void setup() {
@@ -44,6 +48,12 @@ public class DataProviderJavaAcceptanceTest {
 
         // Then:
         assertThat(result).isEqualTo(3);
+    }
+
+    @Test
+    public void testTmpMockIsNotNull() {
+        // Expect:
+        assertThat(tmpMock).isNotNull();
     }
 
     @DataProvider

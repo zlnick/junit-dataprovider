@@ -1,5 +1,6 @@
 package com.tngtech.java.junit.dataprovider;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,6 +152,20 @@ public class DataProviderRunner extends BlockJUnit4ClassRunner {
             }
         };
         return newStatement;
+    }
+
+    @Override
+    protected Statement methodInvoker(FrameworkMethod method, Object test) {
+        // TODO only do if any annotation of Mockito is used?
+        // init annotated mocks before tests
+        try {
+            Class<?> mockitoAnnotationsClazz = Class.forName("org.mockito.MockitoAnnotations");
+            Method initMocksMethod = mockitoAnnotationsClazz.getMethod("initMocks", Object.class);
+            initMocksMethod.invoke(null, test);
+        } catch (Exception e) {
+            // ignore it if class could not be found
+        }
+        return super.methodInvoker(method, test);
     }
 
     /**
