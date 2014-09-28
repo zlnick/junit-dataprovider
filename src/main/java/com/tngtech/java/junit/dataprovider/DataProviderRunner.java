@@ -154,6 +154,7 @@ public class DataProviderRunner extends BlockJUnit4ClassRunner {
         return newStatement;
     }
 
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings({ "REC_CATCH_EXCEPTION", "DE_MIGHT_IGNORE" })
     @Override
     protected Statement methodInvoker(FrameworkMethod method, Object test) {
         // TODO only do if any annotation of Mockito is used?
